@@ -1,35 +1,17 @@
 from utils import *
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import pickle
 import tensorflow as tf
 from tensorflow import keras
-import cv2
-# from google.colab.patches import cv2_imshow
-
-
 from tensorflow.keras import layers, Input
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import Activation, Dense, Lambda
-from tensorflow.keras.callbacks import Callback, EarlyStopping, ReduceLROnPlateau
 
 
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
 from tensorflow.keras.layers import Dropout, BatchNormalization, LeakyReLU, Activation
 
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
-from sklearn.metrics import classification_report
 import pickle
 from urllib.request import urlretrieve
 IMG_WIDTH, IMG_HEIGHT = 50, 50
-
-
-
-
-
 
 
 def make_hidden_layers(inputs):
@@ -128,6 +110,3 @@ model = Model(
     inputs=inputs,
     outputs=[emotion_output, gender_output, race_output, age_output],
 )
-
-
-
