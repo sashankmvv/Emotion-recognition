@@ -1,0 +1,6 @@
+# pickle files
+FER_X.pkl
+FER_y.pkl
+RAFDB_X.pkl
+RAFDB_y.pkl
+__pycache__/

@@ -1,8 +1,14 @@
-from tensorflow.keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
+from sklearn.model_selection import train_test_split
 from tensorflow.keras.layers import Dropout, BatchNormalization, LeakyReLU, Activation
-from utils import *
-from model import model
+from tensorflow.keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
 from tensorflow.keras.optimizers import Adam
+import tensorflow as tf
+from model import model
+from utils import *
+
+basic_emotions = ['surprise', 'fear', 'disgust',
+                  'happy', 'sad', 'angry', 'neutral']
 
 init_lr = 3e-4
 epochs = 50
@@ -15,13 +21,15 @@ metrics = {
 }
 
 # data loading
-# X_train, y_train
-# X_test, y_test
+dataset_name = "RAFDB"
+X, y = load_data(dataset_name)
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, train_size=0.9, shuffle=True, random_state=69)
 
 
-ages_train, emotions_train, genders_train, races_train = seperatecategory(
+ages_train, emotions_train, genders_train, races_train = seperate_category(
     y_train)
-ages_test, emotions_test, genders_test, races_test = seperatecategory(y_test)
+ages_test, emotions_test, genders_test, races_test = seperate_category(y_test)
 
 
 train_gen = generate_images(X_train, emotions_train,
@@ -73,5 +81,3 @@ history = model.fit_generator(train_gen,
                               callbacks=callbacks,
                               validation_data=valid_gen,
                               validation_steps=len(y_test)//batch_size)
-
-

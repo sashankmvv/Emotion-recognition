@@ -1,29 +1,54 @@
 import numpy as np
+import cv2
 import pickle
-from sklearn.model_selection import train_test_split
-from urllib.request import urlretrieve
+import gdown
+
+# RAFDB_X_URL = "https://drive.google.com/file/d/1nAjHb2SioYCmEGsSW52t1p8iWcU_Yk6W/view?usp=sharing"
+# RAFDB_y_URL = "https://drive.google.com/file/d/19YAXA3Pu4U32W8h7fM6wUEwH-5oeQuPl/view?usp=sharing"
+
+RAFDB_X_URL = "https://drive.google.com/uc?id=1nAjHb2SioYCmEGsSW52t1p8iWcU_Yk6W"
+RAFDB_y_URL = "https://drive.google.com/uc?id=19YAXA3Pu4U32W8h7fM6wUEwH-5oeQuPl"
+
+FER_X_URL = "https://drive.google.com/uc?id=1KMDivwGo8XGTpMOgQ83LC0tdvOv2vOzH"
+FER_y_URL = "https://drive.google.com/uc?id=1jNQKvnrRcARieeP83jJpRNGh_XSX0Xtj"
 
 
-def open_pickle(url):
-    infile = urlretrieve(url, 'final_x.pkl')
-    # X_dict = infile.read()
-    # infile.close()
+def download_data(dataset_name):
+    output_X = f"./{dataset_name}_X.pkl"
+    output_y = f"./{dataset_name}_y.pkl"
+
+    print(f"Downloading {dataset_name} dataset ...")
+    if dataset_name == "RAFDB":
+        gdown.download(RAFDB_X_URL, output_X, quiet=False)
+        gdown.download(RAFDB_y_URL, output_y, quiet=False)
+    elif dataset_name == "FER":
+        gdown.download(FER_X_URL, output_X, quiet=False)
+        gdown.download(FER_y_URL, output_y, quiet=False)
+    else:
+        raise Exception(f"Invalid dataset name : {dataset_name}")
+    return output_X, output_y
 
 
-X_dict = open_pickle(
-    "https: // drive.google.com/file/d/1nAjHb2SioYCmEGsSW52t1p8iWcU_Yk6W/view?usp=sharing")
-y = open_pickle(
-    "https: // drive.google.com/file/d/1nAjHb2SioYCmEGsSW52t1p8iWcU_Yk6W/view?usp=sharing")
-X = np.zeros((X_dict.shape[0], 50, 50, 3))
-for i in range(X.shape[0]):
-    data_img = X_dict[i].copy()
-    data_img = cv2.merge((data_img, data_img, data_img))
-    #data_img = cv2.resize(data_img, (224, 224))
-    X[i] = data_img
-del X_dict
-basic_emotions = ['surprise', 'fear', 'disgust',
-                  'happy', 'sad', 'angry', 'neutral']
-IMG_WIDTH, IMG_HEIGHT = 50, 50
+def expand_X_dim(X_dict):
+    X = np.zeros((X_dict.shape[0], 50, 50, 3))
+    for i in range(X.shape[0]):
+        data_img = X_dict[i].copy()
+        data_img = cv2.merge((data_img, data_img, data_img))
+        X[i] = data_img
+    del X_dict
+    return X
+
+
+def load_data(dataset_name):
+    X_path, y_path = download_data(dataset_name)
+    with open(X_path, "rb") as f:
+        X = pickle.load(f)
+    with open(y_path, "rb") as f:
+        y = pickle.load(f)
+
+    X = expand_X_dim(X)
+    return X, y
+
 
 dataset_dict = {
     'emotion_id': {
@@ -63,19 +88,12 @@ dataset_dict['age_alias'] = dict((a, i)
                                  for i, a in dataset_dict['age_id'].items())
 
 
-for k in dataset_dict.keys():
-    if "alias" in k:
-        print(f"{k} : {dataset_dict[k]}")
-
-X = X / 255.0
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, train_size=0.9, shuffle=True, random_state=69)
-
-del X
+# for k in dataset_dict.keys():
+#     if "alias" in k:
+#         print(f"{k} : {dataset_dict[k]}")
 
 
-def seperatecategory(y_train):
+def seperate_category(y_train):
     ages_train, races_train, genders_train, emotions_train = [], [], [], []
     y_emotion = y_train[:, :7]
     y_gender = y_train[:, 7:10]
