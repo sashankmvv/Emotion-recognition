@@ -76,32 +76,37 @@ def make_hidden_layers(inputs):
     return x
 
 
-input_shape = (IMG_WIDTH, IMG_HEIGHT, 3)
-inputs = Input(shape=input_shape)
-x = make_hidden_layers(inputs)
+def get_model():
+    input_shape = (IMG_WIDTH, IMG_HEIGHT, 3)
+    inputs = Input(shape=input_shape)
+    x = make_hidden_layers(inputs)
 
-emotion_output = Dense(
-    7,
-    activation='softmax',
-    name='emotion_output'
-)(x)
-gender_output = Dense(
-    3,
-    activation='softmax',
-    name='gender_output'
-)(x)
-race_output = Dense(
-    3,
-    activation='softmax',
-    name='race_output'
-)(x)
+    emotion_output = Dense(
+        7,
+        activation='softmax',
+        name='emotion_output'
+    )(x)
+    gender_output = Dense(
+        3,
+        activation='softmax',
+        name='gender_output'
+    )(x)
+    race_output = Dense(
+        3,
+        activation='softmax',
+        name='race_output'
+    )(x)
 
-age_output = Dense(
-    5,
-    activation='softmax',
-    name='age_output'
-)(x)
-model = Model(
-    inputs=inputs,
-    outputs=[emotion_output, gender_output, race_output, age_output],
-)
+    age_output = Dense(
+        5,
+        activation='softmax',
+        name='age_output'
+    )(x)
+
+    outputs = [emotion_output, gender_output, race_output, age_output]
+    model = Model(
+        inputs=inputs,
+        outputs=outputs,
+    )
+
+    return model

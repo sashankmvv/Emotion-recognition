@@ -4,7 +4,7 @@ from tensorflow.keras.layers import Dropout, BatchNormalization, LeakyReLU, Acti
 from tensorflow.keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
 from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
-from model import model
+from model import get_model
 from utils import *
 
 basic_emotions = ['surprise', 'fear', 'disgust',
@@ -37,7 +37,7 @@ train_gen = generate_images(X_train, emotions_train,
 valid_gen = generate_images(X_test, emotions_test,
                             genders_test, races_test, ages_test, 32, True)
 
-
+model = get_model()
 # using model imported from model.py
 model.compile(
     optimizer=Adam(learning_rate=init_lr, decay=init_lr / epochs),
