@@ -1,16 +1,11 @@
-from utils import *
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers, Input
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import Activation, Dense, Lambda
-
-
 from tensorflow.keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
 from tensorflow.keras.layers import Dropout, BatchNormalization, LeakyReLU, Activation
 
-import pickle
-from urllib.request import urlretrieve
 IMG_WIDTH, IMG_HEIGHT = 50, 50
 
 
