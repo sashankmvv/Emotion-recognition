@@ -8,8 +8,7 @@ from tensorflow import keras
 import cv2
 # from google.colab.patches import cv2_imshow
 
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.datasets import mnist
+
 from tensorflow.keras import layers, Input
 from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import Activation, Dense, Lambda
@@ -26,6 +25,12 @@ from sklearn.metrics import classification_report
 import pickle
 from urllib.request import urlretrieve
 IMG_WIDTH, IMG_HEIGHT = 50, 50
+
+
+
+
+
+
 
 def make_hidden_layers(inputs):
     x = Conv2D(
@@ -123,54 +128,6 @@ model = Model(
     inputs=inputs,
     outputs=[emotion_output, gender_output, race_output, age_output],
 )
-init_lr = 3e-4
-epochs = 50
-batch_size = 32
 
-metrics = {
-    'emotion_output': 'accuracy',
-    'age_output': 'accuracy',
-    'race_output': 'accuracy',
-    'gender_output': 'accuracy'
-}
 
-model.compile(
-    optimizer=Adam(learning_rate=init_lr, decay=init_lr / epochs),
-    loss=[
 
-        tf.keras.losses.CategoricalCrossentropy(from_logits=False),
-        tf.keras.losses.CategoricalCrossentropy(from_logits=False),
-        tf.keras.losses.CategoricalCrossentropy(from_logits=False),
-        tf.keras.losses.CategoricalCrossentropy(from_logits=False)
-    ],
-    loss_weights=[2, 0.1, 1.5,  4, ],
-    metrics=metrics
-)
-
-early_stopping = EarlyStopping(
-    monitor='val_emotion_output_accuracy',
-    min_delta=0.00005,
-    patience=10,
-    verbose=1,
-    restore_best_weights=True,
-)
-
-lr_scheduler = ReduceLROnPlateau(
-    monitor='val_emotion_output_accuracy',
-    factor=0.2,  # set to 0.1 or 0.2
-    patience=5,  # set to 5-10
-    min_lr=1e-6,  # might want to increase this, originally was 1e-7
-    verbose=1,  # keep this as 1
-)
-
-callbacks = [
-    early_stopping,
-    lr_scheduler,
-]
-
-history = model.fit_generator(train_gen,
-                              steps_per_epoch=len(y_train)//batch_size,
-                              epochs=epochs,
-                              callbacks=callbacks,
-                              validation_data=valid_gen,
-                              validation_steps=len(y_test)//batch_size)

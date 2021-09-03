@@ -88,13 +88,13 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, train_size=0.9, shuffl
 
 del X
 
-ages_train, races_train, genders_train, emotions_train = [], [], [], []
-ages_test, races_test, genders_test, emotions_test = [], [], [], []
+
 
 
 
     
 def seperatecategory(y_train):
+    ages_train, races_train, genders_train, emotions_train = [], [], [], []
     y_emotion = y_train[:, :7]
     y_gender = y_train[:, 7:10]
     y_race = y_train[:, 10:13]
@@ -109,8 +109,7 @@ def seperatecategory(y_train):
     return ages_train,emotions_train, genders_train, races_train
 
 
-ages_train,emotions_train, genders_train,races_train  = seperatecategory(y_train)
-ages_test, emotions_test, genders_test, races_test = seperatecategory(y_test)
+
 
 def generate_images(X, y_emotion, y_gender, y_race, y_age, batch_size, is_training):
     images, ages, races, genders, emotions = [], [], [], [],[]
@@ -128,5 +127,4 @@ def generate_images(X, y_emotion, y_gender, y_race, y_age, batch_size, is_traini
                     break
 
 
-train_gen = generate_images(X_train, emotions_train,genders_train, races_train, ages_train, 32, True)
-valid_gen = generate_images(X_test, emotions_test,genders_test, races_test, ages_test, 32, True)
+
