@@ -6,8 +6,6 @@ from tensorflow.keras.layers import Activation, Dense, Lambda
 from tensorflow.keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
 from tensorflow.keras.layers import Dropout, BatchNormalization, LeakyReLU, Activation
 
-IMG_WIDTH, IMG_HEIGHT = 50, 50
-
 
 def make_hidden_layers(inputs):
     x = Conv2D(
@@ -77,6 +75,7 @@ def make_hidden_layers(inputs):
 
 
 def get_model():
+    IMG_WIDTH, IMG_HEIGHT = 50, 50
     input_shape = (IMG_WIDTH, IMG_HEIGHT, 3)
     inputs = Input(shape=input_shape)
     x = make_hidden_layers(inputs)
