@@ -7,6 +7,43 @@ import tensorflow as tf
 from model import get_model
 from utils import *
 
+dataset_dict = {
+    'emotion_id': {
+        0: "Surprise",
+        1: "Fear",
+        2: "Disgust",
+        3: "Happiness",
+        4: "Sadness",
+        5: "Anger",
+        6: "Neutral"
+    },
+    'gender_id': {
+        0: 'male',
+        1: 'female',
+        2: 'unsure'
+    },
+    'race_id': {
+        0: 'caucasian',
+        1: 'African-American',
+        2: 'Asian'
+    },
+    'age_id': {
+        0: '0-3',
+        1: '4-19',
+        2: '20-39',
+        3: '40-69',
+        4: '70+'
+    }
+}
+dataset_dict['emotion_alias'] = dict(
+    (e, i) for i, e in dataset_dict['emotion_id'].items())
+dataset_dict['gender_alias'] = dict(
+    (g, i) for i, g in dataset_dict['gender_id'].items())
+dataset_dict['race_alias'] = dict((r, i)
+                                  for i, r in dataset_dict['race_id'].items())
+dataset_dict['age_alias'] = dict((a, i)
+                                 for i, a in dataset_dict['age_id'].items())
+
 basic_emotions = ['surprise', 'fear', 'disgust',
                   'happy', 'sad', 'angry', 'neutral']
 
