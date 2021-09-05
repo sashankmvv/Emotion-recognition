@@ -1,12 +1,14 @@
 from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.layers import Dropout, BatchNormalization, LeakyReLU, Activation
-from tensorflow.keras.layers import Flatten, Dense, Conv2D, MaxPooling2D
 from tensorflow.keras.optimizers import Adam
 import tensorflow as tf
 from model import get_model
 from utils import *
 
+import warnings
+warnings.filterwarnings("ignore")
+
+# This dictionary can be used to interpret the output in form of its actual labels
 dataset_dict = {
     'emotion_id': {
         0: "Surprise",
@@ -44,6 +46,10 @@ dataset_dict['race_alias'] = dict((r, i)
 dataset_dict['age_alias'] = dict((a, i)
                                  for i, a in dataset_dict['age_id'].items())
 
+# for k in dataset_dict.keys():
+#     if "alias" in k:
+#         print(f"{k} : {dataset_dict[k]}")
+
 basic_emotions = ['surprise', 'fear', 'disgust',
                   'happy', 'sad', 'angry', 'neutral']
 
@@ -65,14 +71,15 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 
 ages_train, emotions_train, genders_train, races_train = seperate_category(
-    y_train)
-ages_test, emotions_test, genders_test, races_test = seperate_category(y_test)
+    y_train, dataset_name)
+ages_test, emotions_test, genders_test, races_test = seperate_category(
+    y_test, dataset_name)
 
 
 train_gen = generate_images(X_train, emotions_train,
-                            genders_train, races_train, ages_train, 32, True)
+                            genders_train, races_train, ages_train, batch_size, True)
 valid_gen = generate_images(X_test, emotions_test,
-                            genders_test, races_test, ages_test, 32, True)
+                            genders_test, races_test, ages_test, batch_size, True)
 
 model = get_model()
 # using model imported from model.py
@@ -112,6 +119,7 @@ callbacks = [
     lr_scheduler,
 ]
 
+print("Starting training...")
 history = model.fit_generator(train_gen,
                               steps_per_epoch=len(y_train)//batch_size,
                               epochs=epochs,

@@ -8,12 +8,6 @@ from tensorflow.keras.layers import Dropout, BatchNormalization, LeakyReLU, Acti
 
 IMG_WIDTH, IMG_HEIGHT = 50, 50
 
-
-# for k in dataset_dict.keys():
-#     if "alias" in k:
-#         print(f"{k} : {dataset_dict[k]}")
-
-
 def make_hidden_layers(inputs):
     x = Conv2D(
         filters=64,  # number of filters

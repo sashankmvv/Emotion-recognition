@@ -50,19 +50,24 @@ def load_data(dataset_name):
     return X, y
 
 
-def seperate_category(y_train):
+def seperate_category(y, dataset_name="RAFDB"):
     ages_train, races_train, genders_train, emotions_train = [], [], [], []
-    y_emotion = y_train[:, :7]
-    y_gender = y_train[:, 7:10]
-    y_race = y_train[:, 10:13]
-    y_age = y_train[:, 13:]
+    if dataset_name == "FER":
+        y_emotion = y[:, :7]
+        y_gender = np.zeros((y.shape[0], 3))
+        y_race = np.zeros((y.shape[0], 3))
+        y_age = np.zeros((y.shape[0], 5))
+    else:
+        y_emotion = y[:, :7]
+        y_gender = y[:, 7:10]
+        y_race = y[:, 10:13]
+        y_age = y[:, 13:]
 
     for i in range(y_emotion.shape[0]):
         ages_train.append(y_age[i])
         emotions_train.append(y_emotion[i])
         genders_train.append(y_gender[i])
         races_train.append(y_race[i])
-
     return ages_train, emotions_train, genders_train, races_train
 
 
