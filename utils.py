@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+import os
 import pickle
 import gdown
 
@@ -16,16 +17,16 @@ FER_y_URL = "https://drive.google.com/uc?id=1jNQKvnrRcARieeP83jJpRNGh_XSX0Xtj"
 def download_data(dataset_name):
     output_X = f"./{dataset_name}_X.pkl"
     output_y = f"./{dataset_name}_y.pkl"
-
-    print(f"Downloading {dataset_name} dataset ...")
-    if dataset_name == "RAFDB":
-        gdown.download(RAFDB_X_URL, output_X, quiet=False)
-        gdown.download(RAFDB_y_URL, output_y, quiet=False)
-    elif dataset_name == "FER":
-        gdown.download(FER_X_URL, output_X, quiet=False)
-        gdown.download(FER_y_URL, output_y, quiet=False)
-    else:
-        raise Exception(f"Invalid dataset name : {dataset_name}")
+    if not os.path.exists(output_X) and not os.path.exists(output_y):
+        print(f"Downloading {dataset_name} dataset ...")
+        if dataset_name == "RAFDB":
+            gdown.download(RAFDB_X_URL, output_X, quiet=False)
+            gdown.download(RAFDB_y_URL, output_y, quiet=False)
+        elif dataset_name == "FER":
+            gdown.download(FER_X_URL, output_X, quiet=False)
+            gdown.download(FER_y_URL, output_y, quiet=False)
+        else:
+            raise Exception(f"Invalid dataset name : {dataset_name}")
     return output_X, output_y
 
 

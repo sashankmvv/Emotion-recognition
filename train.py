@@ -81,7 +81,7 @@ train_gen = generate_images(X_train, emotions_train,
 valid_gen = generate_images(X_test, emotions_test,
                             genders_test, races_test, ages_test, batch_size, True)
 
-model = get_model()
+model = get_model(pretrained=True, dataset_name=dataset_name)
 # using model imported from model.py
 model.compile(
     optimizer=Adam(learning_rate=init_lr, decay=init_lr / epochs),
