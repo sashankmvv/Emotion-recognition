@@ -12,10 +12,17 @@ This is a Tensorflow implementation of research paper :
 ## Data Preparation
 
 
-## Training
+## Training 
+
+#### Setup the dataset
+
+#### How to run
+
+#### Visualize results
 
 
-## Visualizing 
+
+## Prediction samples 
 
 
 Output Proof : 
