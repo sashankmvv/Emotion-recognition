@@ -51,13 +51,13 @@ valid_gen = generate_images(X_test, emotions_test,
 
 * ### Loading model
 
-#### Model pretrained on RAFDB dataset
+#### To get model pretrained on RAFDB dataset
 ```python
 from model import get_model
 dataset_name = "RAFDB"
 model = get_model(pretrained=True, dataset_name=dataset_name)
 ```
-#### Model pretrained on RAFDB dataset
+#### To get model pretrained on FER dataset
 ```python
 from model import get_model
 dataset_name = "FER"
