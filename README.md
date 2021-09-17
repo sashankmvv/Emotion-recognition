@@ -5,9 +5,10 @@ This is a Tensorflow implementation of research paper :
 ## Architecture 
 ![model architecture](https://user-images.githubusercontent.com/55437218/133663101-64efbd6c-9fa1-406e-8888-f092b3cfe16b.png)
 
-## Datasets 
+## Datasets used 
 * [FER2013](https://www.kaggle.com/c/challenges-in-representation-learning-facial-expression-recognition-challenge/data)
 * [RAFDB](http://www.whdeng.cn/raf/model1.html)
+
 
 ## Data Preparation
 
