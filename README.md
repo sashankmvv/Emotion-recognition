@@ -1,6 +1,6 @@
 # Multi-task learning for Facial Emotion Recognition
 
-This is a Tensorflow implementation of research paper : [link to be added]()
+This is a Tensorflow implementation of research paper : [https://arxiv.org/abs/2110.15028](https://arxiv.org/abs/2110.15028)
 
 ## Architecture 
 ![model architecture](https://user-images.githubusercontent.com/55437218/133663101-64efbd6c-9fa1-406e-8888-f092b3cfe16b.png)
