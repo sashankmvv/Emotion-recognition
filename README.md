@@ -1,4 +1,5 @@
 # Multi-task learning for Facial Emotion Recognition
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/facial-emotion-recognition-a-multi-task/facial-expression-recognition-on-real-world)](https://paperswithcode.com/sota/facial-expression-recognition-on-real-world?p=facial-emotion-recognition-a-multi-task)
 
 This is a official implementation of research paper : [https://arxiv.org/abs/2110.15028](https://arxiv.org/abs/2110.15028)
 
