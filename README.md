@@ -106,13 +106,13 @@ python visualize.py
 ## Prediction samples 
 
 <p float="left">
-  <img src="./results/angry.png" alt="result1" width="200"/>
-  <img src="./results/fear.png" alt="result1" width="200"/>
-  <img src="./results/happy.png" alt="result1" width="200"/>
+  <img src="./results/angry.png" alt="angry" width="200"/>
+  <img src="./results/fear.png" alt="fear" width="200"/>
+  <img src="./results/happy.png" alt="happy" width="200"/>
 </p>
 
 <p float="left">
-  <img src="./results/sad.png" alt="result1" width="200"/>
-  <img src="./results/surprise.png" alt="result1" width="200"/>
-  <img src="./results/neutral.png" alt="result1" width="200"/>
+  <img src="./results/sad.png" alt="sad" width="200"/>
+  <img src="./results/surprise.png" alt="surprise" width="200"/>
+  <img src="./results/neutral.png" alt="neutral" width="200"/>
 </p>
